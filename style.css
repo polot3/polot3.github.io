@@ -1,0 +1,119 @@
+/* --- style.css --- */
+
+/* Variables para los colores gamer/cyberpunk */
+:root {
+    --bg-dark: #0d0d12;
+    --card-bg: #1a1a24;
+    --text-main: #f0f0f0;
+    --text-muted: #a0a0b5;
+    --neon-cyan: #00f0ff;
+    --neon-pink: #ff003c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    /* Fondo con un ligero degradado radial para dar profundidad */
+    background-image: radial-gradient(circle at top, #1f1f2e 0%, var(--bg-dark) 70%);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Centrar todo en la pantalla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+/* Contenedor estilo Linktree */
+.linktree-container {
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+/* Tipografía Afacad para el título */
+h1 {
+    font-family: 'Afacad', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    letter-spacing: 1px;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* Diseño base de los botones */
+.itemlist a {
+    display: block;
+    text-decoration: none;
+    color: var(--text-main);
+    background-color: var(--card-bg);
+    padding: 1.2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Efecto de "escaneo de luz" invisible hasta el hover */
+.itemlist a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+/* Interacción al pasar el mouse (Hover) */
+.itemlist a:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 10px rgba(0, 240, 255, 0.1);
+    color: var(--neon-cyan);
+    transform: translateY(-4px); /* Eleva el botón ligeramente */
+}
+
+/* Anima la barra de luz cruzando el botón */
+.itemlist a:hover::before {
+    left: 100%;
+}
+
+/* Alternancia de color en los botones pares para darle más dinamismo gamer */
+.itemlist:nth-child(even) a:hover {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 15px var(--neon-pink), inset 0 0 10px rgba(255, 0, 60, 0.1);
+    color: var(--neon-pink);
+}
+
+.itemlist:nth-child(even) a::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 0, 60, 0.2), transparent);
+}
