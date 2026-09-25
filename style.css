@@ -1,13 +1,10 @@
 /* --- style.css --- */
 
-/* Variables para los colores gamer/cyberpunk */
 :root {
-    --bg-dark: #0d0d12;
-    --card-bg: #1a1a24;
-    --text-main: #f0f0f0;
-    --text-muted: #a0a0b5;
-    --neon-cyan: #00f0ff;
-    --neon-pink: #ff003c;
+    --bg-color: #050505; /* Negro casi puro */
+    --neon-green: #39ff14;
+    --neon-pink: #ff00ff;
+    --neon-blue: #00ffff;
 }
 
 * {
@@ -17,103 +14,139 @@
 }
 
 body {
-    background-color: var(--bg-dark);
-    /* Fondo con un ligero degradado radial para dar profundidad */
-    background-image: radial-gradient(circle at top, #1f1f2e 0%, var(--bg-dark) 70%);
-    color: var(--text-main);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    /* Tipografía BigBlueTerm, con alternativas de terminal si no está instalada */
+    font-family: 'BigBlueTerm', 'VT323', monospace; 
+    color: #fff;
     
-    /* Centrar todo en la pantalla */
+    /* Flexbox Vertical y Centrado Absoluto */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center; /* Centrado vertical */
+    align-items: center;     /* Centrado horizontal */
     min-height: 100vh;
-    padding: 2rem;
+    overflow: hidden;
+    position: relative;
 }
 
-/* Contenedor estilo Linktree */
+/* Efecto de TV antigua (Scanlines) sobre toda la pantalla */
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    z-index: 10;
+    pointer-events: none; /* Para que no bloquee los clicks de los botones */
+}
+
+/* Contenedor principal */
 .linktree-container {
     width: 100%;
-    max-width: 450px;
+    max-width: 400px;
     text-align: center;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
-/* Tipografía Afacad para el título */
-h1 {
-    font-family: 'Afacad', sans-serif;
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-    letter-spacing: 1px;
+/* =========================================
+   EFECTO DE VIDEO / GLITCH PARA EL TÍTULO
+   ========================================= */
+header {
+    margin-bottom: 1rem;
 }
 
-header p {
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    margin-bottom: 2.5rem;
+.video-title {
+    font-size: 3.5rem;
+    position: relative;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 2px;
+    /* Aberración cromática (colores rojo y azul separados) */
+    text-shadow: 
+        2px 0 var(--neon-pink), 
+        -2px 0 var(--neon-blue);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
 }
 
+.subtitle {
+    font-size: 1.5rem;
+    color: var(--neon-green);
+    margin-top: 10px;
+    text-shadow: 0 0 5px var(--neon-green);
+    animation: blink 1.5s infinite;
+}
+
+/* Animación de parpadeo estilo Arcade */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Animación de Glitch (Interferencia de video) */
+@keyframes glitch-anim {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 2px) }
+    40% { transform: translate(-2px, -2px) }
+    60% { transform: translate(2px, 2px) }
+    80% { transform: translate(2px, -2px) }
+    100% { transform: translate(0) }
+}
+
+/* =========================================
+   BOTONES NEÓN (LINKTREE STYLE)
+   ========================================= */
 nav ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1.5rem; /* Separación vertical entre botones */
 }
 
-/* Diseño base de los botones */
 .itemlist a {
     display: block;
     text-decoration: none;
-    color: var(--text-main);
-    background-color: var(--card-bg);
-    padding: 1.2rem;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
+    color: var(--neon-blue);
+    background: transparent;
+    padding: 15px 20px;
+    font-size: 1.8rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
+    border: 2px solid var(--neon-blue);
+    box-shadow: 
+        0 0 10px inset var(--neon-blue),
+        0 0 10px var(--neon-blue);
+    transition: 0.2s;
     position: relative;
-    overflow: hidden;
-    z-index: 1;
+    cursor: pointer;
 }
 
-/* Efecto de "escaneo de luz" invisible hasta el hover */
-.itemlist a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.2), transparent);
-    transition: left 0.5s ease;
-    z-index: -1;
-}
-
-/* Interacción al pasar el mouse (Hover) */
+/* Efecto al pasar el mouse (Hover) */
 .itemlist a:hover {
-    border-color: var(--neon-cyan);
-    box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 10px rgba(0, 240, 255, 0.1);
-    color: var(--neon-cyan);
-    transform: translateY(-4px); /* Eleva el botón ligeramente */
+    background: var(--neon-blue);
+    color: var(--bg-color);
+    box-shadow: 
+        0 0 20px var(--neon-blue),
+        0 0 40px var(--neon-blue);
+    transform: scale(1.05); /* El botón crece un poco */
 }
 
-/* Anima la barra de luz cruzando el botón */
-.itemlist a:hover::before {
-    left: 100%;
-}
-
-/* Alternancia de color en los botones pares para darle más dinamismo gamer */
-.itemlist:nth-child(even) a:hover {
-    border-color: var(--neon-pink);
-    box-shadow: 0 0 15px var(--neon-pink), inset 0 0 10px rgba(255, 0, 60, 0.1);
+/* Hacemos que el botón de "Proyectos" o botones pares tengan color rosa para variar el neón */
+.itemlist:nth-child(even) a {
     color: var(--neon-pink);
+    border-color: var(--neon-pink);
+    box-shadow: 
+        0 0 10px inset var(--neon-pink),
+        0 0 10px var(--neon-pink);
 }
 
-.itemlist:nth-child(even) a::before {
-    background: linear-gradient(90deg, transparent, rgba(255, 0, 60, 0.2), transparent);
+.itemlist:nth-child(even) a:hover {
+    background: var(--neon-pink);
+    color: var(--bg-color);
+    box-shadow: 
+        0 0 20px var(--neon-pink),
+        0 0 40px var(--neon-pink);
 }
