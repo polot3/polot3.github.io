@@ -15,18 +15,34 @@
 
 body {
     background-color: var(--bg-color);
-    /* Tipografía BigBlueTerm, con alternativas de terminal si no está instalada */
-    font-family: 'BigBlueTerm', 'VT323', monospace; 
+    /* Tipografía Geist Pixel (Google Fonts), con alternativas si no carga */
+    font-family: 'Geist Pixel', 'Geist Mono', 'VT323', monospace;
     color: #fff;
-    
+
     /* Flexbox Vertical y Centrado Absoluto */
     display: flex;
     flex-direction: column;
     justify-content: center; /* Centrado vertical */
     align-items: center;     /* Centrado horizontal */
     min-height: 100vh;
+    padding: 3rem 2rem;      /* Aire entre el contenido y el marco */
     overflow: hidden;
     position: relative;
+}
+
+/* =========================================
+   MARCO NEÓN ALREDEDOR DE TODO
+   ========================================= */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 16px; /* Distancia del marco al borde de la pantalla */
+    border: 3px solid var(--neon-green);
+    box-shadow:
+        0 0 10px var(--neon-green),
+        0 0 10px inset var(--neon-green);
+    z-index: 15;
+    pointer-events: none;
 }
 
 /* Efecto de TV antigua (Scanlines) sobre toda la pantalla */
@@ -57,7 +73,7 @@ body {
    EFECTO DE VIDEO / GLITCH PARA EL TÍTULO
    ========================================= */
 header {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem; /* Más espacio entre el encabezado y los botones */
 }
 
 .video-title {
@@ -67,8 +83,8 @@ header {
     color: #fff;
     letter-spacing: 2px;
     /* Aberración cromática (colores rojo y azul separados) */
-    text-shadow: 
-        2px 0 var(--neon-pink), 
+    text-shadow:
+        2px 0 var(--neon-pink),
         -2px 0 var(--neon-blue);
     animation: glitch-anim 2s infinite linear alternate-reverse;
 }
@@ -76,7 +92,9 @@ header {
 .subtitle {
     font-size: 1.5rem;
     color: var(--neon-green);
-    margin-top: 10px;
+    margin-top: 1.5rem;   /* Antes 10px: más separación del título */
+    margin-bottom: 1rem;  /* Más separación de los botones */
+    letter-spacing: 1px;
     text-shadow: 0 0 5px var(--neon-green);
     animation: blink 1.5s infinite;
 }
@@ -116,7 +134,7 @@ nav ul {
     font-size: 1.8rem;
     text-transform: uppercase;
     border: 2px solid var(--neon-blue);
-    box-shadow: 
+    box-shadow:
         0 0 10px inset var(--neon-blue),
         0 0 10px var(--neon-blue);
     transition: 0.2s;
@@ -128,17 +146,17 @@ nav ul {
 .itemlist a:hover {
     background: var(--neon-blue);
     color: var(--bg-color);
-    box-shadow: 
+    box-shadow:
         0 0 20px var(--neon-blue),
         0 0 40px var(--neon-blue);
     transform: scale(1.05); /* El botón crece un poco */
 }
 
-/* Hacemos que el botón de "Proyectos" o botones pares tengan color rosa para variar el neón */
+/* Botones pares con color rosa para variar el neón */
 .itemlist:nth-child(even) a {
     color: var(--neon-pink);
     border-color: var(--neon-pink);
-    box-shadow: 
+    box-shadow:
         0 0 10px inset var(--neon-pink),
         0 0 10px var(--neon-pink);
 }
@@ -146,7 +164,7 @@ nav ul {
 .itemlist:nth-child(even) a:hover {
     background: var(--neon-pink);
     color: var(--bg-color);
-    box-shadow: 
+    box-shadow:
         0 0 20px var(--neon-pink),
         0 0 40px var(--neon-pink);
 }
